@@ -7,9 +7,11 @@ export async function sendEmail({ email, emailType, userId }: any) {
     const hashedToken = await bcrypt.hash(userId.toString(), 10);
 
     const path = emailType === "VERIFY" ? "/verifyemail" : "/resetpassword";
-    const url = `${process.env.DOMAIN}${path}?token=${encodeURIComponent(
-      hashedToken,
-    )}`;
+    const url = `${process.env.DOMAIN}${path}?token=${hashedToken}`;
+
+    console.log("email:", email);
+    console.log("emailType:", emailType);
+    console.log("userId:", userId);
 
     if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId, {

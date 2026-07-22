@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       verifyToken: token,
       verifyTokenExpiry: { $gt: Date.now() },
     });
-
+console.log('user:', user)
     if (!user) {
       return NextResponse.json({ message: "token not found" }, { status: 400 });
     }
